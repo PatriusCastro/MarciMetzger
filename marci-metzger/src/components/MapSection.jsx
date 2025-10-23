@@ -12,6 +12,7 @@ function MapSection() {
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3264.2357673534456!2d-116.0233493!3d36.2013456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c5d8a8c0b6f20b%3A0x8f2d1e5c5c5c5c5c!2s3190%20HW-160%2C%20Suite%20F%2C%20Pahrump%2C%20NV%2089048!5e0!3m2!1sen!2sus!4v1629788000000!5m2!1sen!2sus"
                 className="absolute inset-0 w-full h-full border-0"
+                title="Marci Metzger Homes Office Location"
                 loading="lazy"
               ></iframe>
               

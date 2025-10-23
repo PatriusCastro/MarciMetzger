@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { BsZoomIn } from 'react-icons/bs';
 
 function PhotoGallery() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -43,6 +42,7 @@ function PhotoGallery() {
                 <div className="rounded-xl overflow-hidden h-[350px] md:h-[450px] bg-gradient-to-b from-gray-900/10 to-gray-900">
                   <img 
                     src={image.src}
+                    alt={`Property ${index + 1}`}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-black/10 rounded-xl group-hover:bg-black/20 transition-all duration-300"/>
@@ -62,6 +62,7 @@ function PhotoGallery() {
           <div className="max-w-7xl w-full">
             <img 
               src={selectedImage.src}
+              alt="Selected property view"
               className="w-full h-auto max-h-[85vh] object-contain rounded-lg shadow-2xl"
             />
           </div>

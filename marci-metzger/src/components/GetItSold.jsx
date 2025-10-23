@@ -18,7 +18,7 @@ function GetItSold() {
     }, 3000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [images.length]);
 
   return (
     <section className="py-10 md:py-20 bg-gray-900">

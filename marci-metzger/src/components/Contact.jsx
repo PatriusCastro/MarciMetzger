@@ -1,36 +1,24 @@
 import { useState, useEffect } from 'react';
 import { FaWhatsapp, FaFacebookF, FaInstagram, FaLinkedinIn, FaYelp } from 'react-icons/fa';
 
+// Move businessHours outside the component to avoid dependency issues
+const businessHours = {
+  Monday: { open: '08:00', close: '19:00' },
+  Tuesday: { open: '08:00', close: '19:00' },
+  Wednesday: { open: '08:00', close: '19:00' },
+  Thursday: { open: '08:00', close: '19:00' },
+  Friday: { open: '08:00', close: '19:00' },
+  Saturday: { open: '08:00', close: '19:00' },
+  Sunday: { open: '08:00', close: '19:00' }
+};
+
 function Contact() {
   const [isOpen, setIsOpen] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
 
-  const businessHours = {
-    Monday: { open: '08:00', close: '19:00' },
-    Tuesday: { open: '08:00', close: '19:00' },
-    Wednesday: { open: '08:00', close: '19:00' },
-    Thursday: { open: '08:00', close: '19:00' },
-    Friday: { open: '08:00', close: '19:00' },
-    Saturday: { open: '08:00', close: '19:00' },
-    Sunday: { open: '08:00', close: '19:00' }
-  };
-
-  const checkIfOpen = () => {
-    const now = new Date();
-    const day = now.toLocaleDateString('en-US', { weekday: 'long' });
-    const time = now.getHours() * 100 + now.getMinutes();
-    
-    const hours = businessHours[day];
-    const openTime = parseInt(hours.open.replace(':', ''));
-    const closeTime = parseInt(hours.close.replace(':', ''));
-    
-    return time >= openTime && time < closeTime;
-  };
-
   const getNextOpeningTime = () => {
     const now = new Date();
     const currentHour = now.getHours();
-    const day = now.toLocaleDateString('en-US', { weekday: 'long' });
     
     if (currentHour < 8) {
       return 'Opening today at 8:00 AM';
@@ -41,6 +29,18 @@ function Contact() {
   };
 
   useEffect(() => {
+    const checkIfOpen = () => {
+      const now = new Date();
+      const day = now.toLocaleDateString('en-US', { weekday: 'long' });
+      const time = now.getHours() * 100 + now.getMinutes();
+      
+      const hours = businessHours[day];
+      const openTime = parseInt(hours.open.replace(':', ''));
+      const closeTime = parseInt(hours.close.replace(':', ''));
+      
+      return time >= openTime && time < closeTime;
+    };
+
     const interval = setInterval(() => {
       setCurrentTime(new Date());
       setIsOpen(checkIfOpen());
@@ -48,7 +48,30 @@ function Contact() {
 
     setIsOpen(checkIfOpen());
     return () => clearInterval(interval);
-  }, []);
+  }, []); 
+
+  const socialLinks = [
+    { 
+      icon: FaFacebookF, 
+      href: 'https://www.facebook.com/MarciHomes/',
+      label: 'Facebook'
+    },
+    { 
+      icon: FaInstagram, 
+      href: 'https://www.instagram.com/marciandlauren_nvrealtors/',
+      label: 'Instagram'
+    },
+    { 
+      icon: FaLinkedinIn, 
+      href: 'https://www.linkedin.com/in/marci-metzger-30642496/',
+      label: 'LinkedIn'
+    },
+    { 
+      icon: FaYelp, 
+      href: 'https://www.yelp.com/biz/marci-metzger-the-ridge-realty-pahrump',
+      label: 'Yelp'
+    }
+  ];
 
   return (
     <section id="contact" className="py-20 bg-gradient-to-b from-white to-gray-50">
@@ -106,10 +129,13 @@ function Contact() {
                 <div>
                   <h3 className="font-semibold mb-4">Connect With Us</h3>
                   <div className="flex gap-4">
-                    {[FaFacebookF, FaInstagram, FaLinkedinIn, FaYelp].map((Icon, index) => (
+                    {socialLinks.map(({ icon: Icon, href, label }) => (
                       <a
-                        key={index}
-                        href="#"
+                        key={label}
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={label}
                         className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:scale-110"
                       >
                         <Icon className="w-5 h-5" />
